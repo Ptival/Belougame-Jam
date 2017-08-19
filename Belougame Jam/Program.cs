@@ -14,7 +14,7 @@ namespace Belougame_Jam
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new JungleAdventures())
                 game.Run();
         }
     }

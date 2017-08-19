@@ -1,38 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Belougame_Jam
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class JungleAdventures : Game
     {
-        const string JOHNSON_FILE = "johnson_idle";
-        const int JOHNSON_WIDTH = 64;
-        const int JOHNSON_HEIGHT = 64;
-        const int JOHNSON_FRAMES = 8;
-        const int JOHNSON_FRAMETIME = 95;
-
-        const string MICHEL_IDLE_FILE = "michel_idle";
-        const int MICHEL_WIDTH = 19;
-        const int MICHEL_HEIGHT = 34;
-        const int MICHEL_FRAMES = 12;
-        const int MICHEL_FRAMETIME = 90;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        // Texture2D playerTexture;
-        Texture2D johnsonTexture;
-        Texture2D michelTexture;
-        Player player;
-        Player playerMichel;
+        List<Player> players;
 
-        public Game1()
+        public JungleAdventures()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            players = new List<Player>();
         }
 
         /// <summary>
@@ -42,12 +31,7 @@ namespace Belougame_Jam
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-            player = new Player();
-            playerMichel = new Player();
-
-
+        {            
             base.Initialize();
         }
 
@@ -58,28 +42,25 @@ namespace Belougame_Jam
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            // Create a new SpriteBatch, which can be used to draw textures.
-            Animation playerAnimation = new Animation();
-            Animation playerMichelAnimation = new Animation();
 
-            johnsonTexture = Content.Load<Texture2D>(JOHNSON_FILE);
-            playerAnimation.Initialize(
-                johnsonTexture, Vector2.Zero,
-                JOHNSON_WIDTH, JOHNSON_HEIGHT, JOHNSON_FRAMES, JOHNSON_FRAMETIME,
-                Color.White, 1, true
-                );
-            michelTexture = Content.Load<Texture2D>(MICHEL_IDLE_FILE);
-            playerMichelAnimation.Initialize(
-                michelTexture, Vector2.Zero,
-                MICHEL_WIDTH, MICHEL_HEIGHT, MICHEL_FRAMES, MICHEL_FRAMETIME,
-                Color.White, 2, true
-                );
+            Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
+            Sprite michelIdle = new Sprite(Content, "michel_idle", 19, 34, 12, 90, 2);
 
-            Vector2 playerPosition = new Vector2(
-                GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
-                GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            player.Initialize(playerAnimation, playerPosition);
-            playerMichel.Initialize(playerMichelAnimation, playerPosition);
+            var playerSprites = new List<Sprite>();
+            playerSprites.Add(johnsonIdle);
+            playerSprites.Add(michelIdle);
+
+            foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i })) {
+                Vector2 position = new Vector2(
+                    GraphicsDevice.Viewport.TitleSafeArea.X
+                    + GraphicsDevice.Viewport.TitleSafeArea.Width * (it.Index + 1) / 3,
+                    GraphicsDevice.Viewport.TitleSafeArea.Y
+                    + GraphicsDevice.Viewport.TitleSafeArea.Height / 2
+                );
+                Player player = new Player();
+                player.Initialize(it.Sprite.animation, position);
+                players.Add(player);
+            }
 
         }
 
@@ -103,8 +84,7 @@ namespace Belougame_Jam
                 Exit();
             base.Update(gameTime);
 
-            player.Update(gameTime);
-            playerMichel.Update(gameTime);
+            players.ForEach(p => p.Update(gameTime));
         }
 
         /// <summary>
@@ -117,8 +97,7 @@ namespace Belougame_Jam
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            player.Draw(spriteBatch);
-            playerMichel.Draw(spriteBatch);
+            players.ForEach(p => p.Draw(spriteBatch));
             spriteBatch.End();
 
             base.Draw(gameTime);
