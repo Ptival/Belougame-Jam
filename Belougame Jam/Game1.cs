@@ -45,7 +45,7 @@ namespace Belougame_Jam
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            tankTexture = Content.Load<Texture2D>("tank");
+            tankTexture = Content.Load<Texture2D>("umbreon");
             player.Initialize(tankTexture, playerPosition);
 
             // TODO: use this.Content to load your game content here
