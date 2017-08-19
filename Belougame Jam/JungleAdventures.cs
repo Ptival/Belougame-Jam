@@ -16,6 +16,12 @@ namespace Belougame_Jam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Player> players;
+        KeyboardState currentKeyboardState;
+        KeyboardState previousKeyboardState;
+        GamePadState currentGamePadState;
+        GamePadState previousGamePadState;
+        MouseState currentMouseState;
+        MouseState previousMouseState;
 
         public JungleAdventures()
         {
@@ -31,7 +37,7 @@ namespace Belougame_Jam
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {            
+        {
             base.Initialize();
         }
 
@@ -50,7 +56,8 @@ namespace Belougame_Jam
             playerSprites.Add(johnsonIdle);
             playerSprites.Add(michelIdle);
 
-            foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i })) {
+            foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
+            {
                 Vector2 position = new Vector2(
                     GraphicsDevice.Viewport.TitleSafeArea.X
                     + GraphicsDevice.Viewport.TitleSafeArea.Width * (it.Index + 1) / 3,
@@ -84,7 +91,10 @@ namespace Belougame_Jam
                 Exit();
             base.Update(gameTime);
 
-            players.ForEach(p => p.Update(gameTime));
+            previousKeyboardState = currentKeyboardState;
+            currentKeyboardState = Keyboard.GetState();
+
+            players.ForEach(p => p.Update(gameTime, currentKeyboardState));
         }
 
         /// <summary>
