@@ -13,7 +13,7 @@ namespace Belougame_Jam
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D tankTexture;
+        Texture2D playerTexture;
         Player player;
 
         public Game1()
@@ -48,8 +48,8 @@ namespace Belougame_Jam
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            tankTexture = Content.Load<Texture2D>("idle");
-            player.Initialize(tankTexture, playerPosition);
+            playerTexture = Content.Load<Texture2D>("idle");
+            player.Initialize(playerTexture, playerPosition);
             // Commentaire bidon version Hédi !
 
             // TODO: use this.Content to load your game content here
