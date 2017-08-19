@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="JungleAdventures.cs" />
     <Compile Include="Player.cs" />

@@ -16,6 +16,7 @@ namespace Belougame_Jam
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Level level;
         List<Player> players;
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
@@ -49,6 +50,8 @@ namespace Belougame_Jam
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            level = new Level(Content, "level");
 
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
@@ -101,6 +104,7 @@ namespace Belougame_Jam
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
+
             players.ForEach(p => p.Update(gameTime, currentKeyboardState));
         }
 
@@ -114,6 +118,7 @@ namespace Belougame_Jam
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            level.Draw(GraphicsDevice, spriteBatch);
             players.ForEach(p => p.Draw(spriteBatch));
             spriteBatch.End();
 

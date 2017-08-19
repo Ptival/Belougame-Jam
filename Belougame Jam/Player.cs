@@ -41,7 +41,7 @@ namespace Belougame_Jam
             Health = 100;
             Direction = PlayerDirection.FacingRight;
             State = PlayerState.Idle;
-            Speed = 1;
+            Speed = 3;
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState)
