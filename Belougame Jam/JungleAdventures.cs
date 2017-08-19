@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,11 +51,12 @@ namespace Belougame_Jam
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
+            Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
             Sprite michelIdle = new Sprite(Content, "michel_idle", 19, 34, 12, 90, 2);
 
-            var playerSprites = new List<Sprite>();
-            playerSprites.Add(johnsonIdle);
-            playerSprites.Add(michelIdle);
+            var playerSprites = new List<Tuple<Sprite, Sprite>>();
+            playerSprites.Add(new Tuple<Sprite, Sprite>(johnsonIdle, johnsonRun));
+            playerSprites.Add(new Tuple<Sprite, Sprite>(michelIdle, michelIdle));
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {
@@ -65,7 +67,11 @@ namespace Belougame_Jam
                     + GraphicsDevice.Viewport.TitleSafeArea.Height / 2
                 );
                 Player player = new Player();
-                player.Initialize(it.Sprite.animation, position);
+                player.Initialize(
+                    it.Sprite.Item1.animation,
+                    it.Sprite.Item2.animation,
+                    position
+                    );
                 players.Add(player);
             }
 

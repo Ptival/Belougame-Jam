@@ -7,34 +7,50 @@ namespace Belougame_Jam
 {
     class Player
     {
-        public Animation PlayerAnimation;
+        public Animation IdleAnimation;
+        public Animation RunAnimation;
         public Vector2 Position;
         public bool Active;
+        public bool IsRunning;
         public int Health;
         public float Speed;
 
-        public void Initialize(Animation animation, Vector2 position)
+        public void Initialize(
+            Animation idleAnimation,
+            Animation runAnimation,
+            Vector2 position
+            )
         {
-            PlayerAnimation = animation;
+            IdleAnimation = idleAnimation;
+            RunAnimation = runAnimation;
             Position = position;
             Active = true;
             Health = 100;
+            IsRunning = false;
             Speed = 1;
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState)
         {
             float direction = 0;
+
             if (keyboardState.IsKeyDown(Keys.D)) { direction += 1; }
             if (keyboardState.IsKeyDown(Keys.A)) { direction -= 1; }
+
+            IsRunning = direction != 0;
+
             Position.X += direction * Speed;
-            PlayerAnimation.Position = Position;
-            PlayerAnimation.Update(gameTime);
+
+            IdleAnimation.Position = Position;
+            IdleAnimation.Update(gameTime);
+            RunAnimation.Position = Position;
+            RunAnimation.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            PlayerAnimation.Draw(spriteBatch);
+            Animation displayedAnimation = IsRunning ? RunAnimation : IdleAnimation;
+            displayedAnimation.Draw(spriteBatch);
         }
     }
 }
