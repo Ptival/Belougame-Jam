@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Belouga;
-
 namespace Belougame_Jam
 {
     /// <summary>
@@ -11,9 +9,16 @@ namespace Belougame_Jam
     /// </summary>
     public class Game1 : Game
     {
+        const string JOHNSON_FILE = "johnson_idle";
+        const int JOHNSON_WIDTH = 64;
+        const int JOHNSON_HEIGHT = 64;
+        const int JOHNSON_FRAMES = 8;
+        const int JOHNSON_FRAMETIME = 95;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D playerTexture;
+        // Texture2D playerTexture;
+        Texture2D johnsonTexture;
         Player player;
 
         public Game1()
@@ -42,17 +47,19 @@ namespace Belougame_Jam
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-
-
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            playerTexture = Content.Load<Texture2D>("idle");
-            player.Initialize(playerTexture, playerPosition);
-            // Commentaire bidon version Hédi !
-
-            // TODO: use this.Content to load your game content here
+            // Create a new SpriteBatch, which can be used to draw textures.
+            Animation playerAnimation = new Animation();
+            johnsonTexture = Content.Load<Texture2D>(JOHNSON_FILE);
+            playerAnimation.Initialize(
+                johnsonTexture, Vector2.Zero,
+                JOHNSON_WIDTH, JOHNSON_HEIGHT, JOHNSON_FRAMES, JOHNSON_FRAMETIME,
+                Color.White, 5, true
+                );
+            Vector2 playerPosition = new Vector2(
+                GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
+                GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            player.Initialize(playerAnimation, playerPosition);
         }
 
         /// <summary>
@@ -73,10 +80,9 @@ namespace Belougame_Jam
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
+
+            player.Update(gameTime);
         }
 
         /// <summary>
