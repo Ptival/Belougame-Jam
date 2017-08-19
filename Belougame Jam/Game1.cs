@@ -43,9 +43,12 @@ namespace Belougame_Jam
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+
+
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            tankTexture = Content.Load<Texture2D>("umbreon");
+            tankTexture = Content.Load<Texture2D>("idle");
             player.Initialize(tankTexture, playerPosition);
             // Commentaire bidon version Hédi !
 
