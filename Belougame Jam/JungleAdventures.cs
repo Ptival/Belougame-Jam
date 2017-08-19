@@ -52,11 +52,12 @@ namespace Belougame_Jam
 
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
-            Sprite michelIdle = new Sprite(Content, "michel_idle", 19, 34, 12, 90, 2);
+            Sprite michelIdle = new Sprite(Content, "michel_idle", 21, 35, 12, 90, 2);
+            Sprite michelRun = new Sprite(Content, "michel_run", 23, 34, 8, 90, 2);
 
             var playerSprites = new List<Tuple<Sprite, Sprite>>();
             playerSprites.Add(new Tuple<Sprite, Sprite>(johnsonIdle, johnsonRun));
-            playerSprites.Add(new Tuple<Sprite, Sprite>(michelIdle, michelIdle));
+            playerSprites.Add(new Tuple<Sprite, Sprite>(michelIdle, michelRun));
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {

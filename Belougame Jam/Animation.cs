@@ -21,6 +21,7 @@ namespace Belougame_Jam
         public bool Active;
         public bool Looping;
         public Vector2 Position;
+        SpriteEffects Effects;
 
         public void Initialize(
             Texture2D texture,
@@ -44,10 +45,12 @@ namespace Belougame_Jam
             Active = true;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, SpriteEffects effects)
         {
             if (Active == false) return;
             elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            Effects = effects;
 
             // si besoin, mettre à jour le numéro de frame (currentFrame)
             if (elapsedTime > frameTime)
@@ -96,7 +99,7 @@ namespace Belougame_Jam
         {
             if (Active)
             {
-                spriteBatch.Draw(spriteStrip, destinationRect, sourceRect, color);
+                spriteBatch.Draw(spriteStrip, destinationRect, sourceRect, color, 0, Vector2.Zero, Effects, 0);
             }
         }
     }

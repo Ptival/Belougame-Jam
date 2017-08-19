@@ -40,11 +40,11 @@ namespace Belougame_Jam
             IsRunning = direction != 0;
 
             Position.X += direction * Speed;
-
+            SpriteEffects effects = direction >= 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             IdleAnimation.Position = Position;
-            IdleAnimation.Update(gameTime);
+            IdleAnimation.Update(gameTime, effects);
             RunAnimation.Position = Position;
-            RunAnimation.Update(gameTime);
+            RunAnimation.Update(gameTime, effects);
         }
 
         public void Draw(SpriteBatch spriteBatch)
