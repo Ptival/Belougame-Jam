@@ -15,7 +15,7 @@ namespace Belougame_Jam
     {
         Idle = 0,
         Running = 1
-    }   
+    }
 
     class Player
     {
@@ -66,7 +66,7 @@ namespace Belougame_Jam
 
             Position.X += direction * Speed;
 
-            SpriteEffects effects = directionEffects(Direction);            
+            SpriteEffects effects = directionEffects(Direction);
             IdleAnimation.Position = Position;
             IdleAnimation.Update(gameTime, effects);
             RunAnimation.Position = Position;
