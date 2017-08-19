@@ -47,7 +47,7 @@ namespace Belougame_Jam
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             tankTexture = Content.Load<Texture2D>("umbreon");
             player.Initialize(tankTexture, playerPosition);
-            // Commentaire bidon
+            // Commentaire bidon version Hédi !
 
             // TODO: use this.Content to load your game content here
         }
