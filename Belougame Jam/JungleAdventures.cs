@@ -68,7 +68,7 @@ namespace Belougame_Jam
                     GraphicsDevice.Viewport.TitleSafeArea.X
                     + GraphicsDevice.Viewport.TitleSafeArea.Width * (it.Index + 1) / 3,
                     GraphicsDevice.Viewport.TitleSafeArea.Y
-                    + GraphicsDevice.Viewport.TitleSafeArea.Height / 2
+                    + GraphicsDevice.Viewport.TitleSafeArea.Height * (0.83f)
                 );
                 Player player = new Player();
                 player.Initialize(
