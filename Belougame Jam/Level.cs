@@ -22,6 +22,7 @@ namespace Belougame_Jam
         // full level WxH in pixels
         public int LevelWidth { get { return map.Width * map.TileWidth; } }
         public int LevelHeight { get { return map.Height * map.TileHeight; } }
+        public List<Rectangle> LevelCollisionBoxes;
 
         private int LevelViewWidth
         {
@@ -81,6 +82,8 @@ namespace Belougame_Jam
             TileSheet = content.Load<Texture2D>(Path.GetFileNameWithoutExtension(map.Tilesets[0].Image.Source));
             Texture = new RenderTarget2D(graphicsDevice, LevelWidth, LevelHeight);
 
+            LevelCollisionBoxes = new List<Rectangle>();
+
             // painting the level texture
             int nbColumns = map.Tilesets[0].Columns.Value;
             graphicsDevice.SetRenderTarget(Texture);
@@ -108,6 +111,11 @@ namespace Belougame_Jam
                         map.TileWidth, map.TileHeight
                         );
                     spriteBatch.Draw(TileSheet, dstRect, srcRect, Color.White);
+
+                    if(tile.Gid != 0)
+                    {
+                        LevelCollisionBoxes.Add(dstRect);
+                    }
                 }
             }
             spriteBatch.End();

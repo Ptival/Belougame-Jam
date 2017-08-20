@@ -29,6 +29,17 @@ namespace Belougame_Jam
         public PlayerState State;
         private float SpriteScale;
 
+        public Rectangle BoundingRectangle
+        {
+            get
+            {
+                return new Rectangle((int)PlayerPosition.X - (int)(IdleAnimation.FrameWidth / 2),
+                                     (int)PlayerPosition.Y - (int)IdleAnimation.FrameHeight,
+                                     IdleAnimation.FrameWidth, IdleAnimation.FrameHeight
+                                     );
+            }
+        }
+
         public void Initialize(
             Animation idleAnimation,
             Animation runAnimation,
@@ -72,8 +83,14 @@ namespace Belougame_Jam
                 State = PlayerState.Running;
             }
 
+            Vector2 movementVector = new Vector2(direction * Speed, 0);
+            Rectangle translatedRectangle = new Rectangle(BoundingRectangle.X, BoundingRectangle.Y, BoundingRectangle.Width, BoundingRectangle.Height);
+            translatedRectangle.Offset(movementVector);
+            if(level.LevelCollisionBoxes.TrueForAll(b => !b.Intersects(translatedRectangle)))
+            {
             PlayerPosition.X += direction * Speed;
             PlayerPosition.X = MathHelper.Clamp(PlayerPosition.X, 0, level.LevelWidth);
+            }
 
             Animation currentAnimation = getAnimation();
 
