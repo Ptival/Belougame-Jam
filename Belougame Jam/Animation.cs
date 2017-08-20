@@ -90,8 +90,8 @@ namespace Belougame_Jam
             sourceRect = new Rectangle(0, currentFrame * FrameHeight, FrameWidth, FrameHeight);
 
             destinationRect = new Rectangle(
-                (int)position.X - (int)(FrameWidth * scale) / 2,
-                (int)position.Y - (int)(FrameHeight * scale) / 2,
+                (int)position.X - (int)(viewport.TitleSafeArea.Width * scale) / 2,
+                (int)position.Y - (int)(viewport.TitleSafeArea.Height * scale) / 2,
                 (int)(viewport.TitleSafeArea.Width * scale),
                 (int)(viewport.TitleSafeArea.Height * scale)
             );

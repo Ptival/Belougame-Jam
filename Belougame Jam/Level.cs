@@ -15,6 +15,7 @@ namespace Belougame_Jam
     {
         private RenderTarget2D Texture;
         private Texture2D TileSheet;
+        private TmxMap map;
         // private Vector2 Position;
         private Rectangle DestinationRect;
         private Rectangle SourceRect;
@@ -31,7 +32,7 @@ namespace Belougame_Jam
             DestinationRect = new Rectangle();
             SourceRect = new Rectangle();
 
-            TmxMap map = new TmxMap(tmxFile);
+            map = new TmxMap(tmxFile);
             LevelWidth = map.Width * map.TileWidth;
             LevelHeight = map.Height * map.TileHeight;
 
@@ -87,8 +88,8 @@ namespace Belougame_Jam
 
             SourceRect = new Rectangle(
                 (int)centeredPlayer.LevelPosition.X, 0,
-                (Texture.Height * GraphicsDevice.Viewport.TitleSafeArea.Width) / GraphicsDevice.Viewport.TitleSafeArea.Height,
-                Texture.Height
+                LevelHeight * (map.TileWidth / map.TileHeight) * (4 / 3),
+                LevelHeight
                 );
         }
 
@@ -96,7 +97,10 @@ namespace Belougame_Jam
             SpriteBatch spriteBatch
             )
         {
-            spriteBatch.Draw(Texture, DestinationRect, SourceRect, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(
+                Texture, DestinationRect, SourceRect,
+                Color.White, 0, Vector2.Zero, SpriteEffects.None, 1
+                );
         }
     }
 }
