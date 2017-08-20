@@ -57,11 +57,11 @@ namespace Belougame_Jam
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(10.0f, 1.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(50.0f, 2.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(100.0f, 3.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(150.0f, 4.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(200.0f, 4.0f), 2.3f));
 
             level = new Level(
                             Content,

@@ -20,7 +20,12 @@ namespace Belougame_Jam
         //Calculate Rectangle dimensions, based on offset/viewport/zoom values
         private Rectangle Rectangle
         {
-            get { return new Rectangle((int)(Offset.X), (int)(Offset.Y), (int)((Texture.Height * Viewport.TitleSafeArea.Width) / Viewport.TitleSafeArea.Height), (int)(Viewport.Height / Scale)); }
+            get {
+                return new Rectangle(
+                    (int)(Offset.X), (int)(Offset.Y),
+                    (int)((Texture.Height * Viewport.TitleSafeArea.Width) / Viewport.TitleSafeArea.Height),
+                    (int)(Viewport.Height / Scale));
+            }
         }
 
         public Background(Texture2D texture, Vector2 speed, float scale)
@@ -47,7 +52,11 @@ namespace Belougame_Jam
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, new Vector2(Viewport.X, Viewport.Y), Rectangle, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(
+                Texture,
+                new Vector2(Viewport.X, Viewport.Y),
+                Rectangle, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1
+                );
         }
     }
 }
