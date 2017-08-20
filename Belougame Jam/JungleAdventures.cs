@@ -75,10 +75,12 @@ namespace Belougame_Jam
                             "Content/Levels/Level 0/level_0.tmx"
                         );
 
-            Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
-            Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
-            Sprite michelIdle = new Sprite(Content, "michel_idle", 21, 35, 12, 90, 2);
-            Sprite michelRun = new Sprite(Content, "michel_run", 23, 34, 8, 90, 2);
+            float johnsonScale = 0.1f;
+            float michelScale = johnsonScale * 1.2f;
+            Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, johnsonScale);
+            Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, johnsonScale);
+            Sprite michelIdle = new Sprite(Content, "michel_idle", 21, 35, 12, 90, michelScale);
+            Sprite michelRun = new Sprite(Content, "michel_run", 23, 34, 8, 90, michelScale);
 
             var playerSprites = new List<Tuple<Sprite, Sprite>>();
             playerSprites.Add(new Tuple<Sprite, Sprite>(johnsonIdle, johnsonRun));
@@ -134,7 +136,7 @@ namespace Belougame_Jam
 
             foreach (Background bg in Backgrounds)
                 bg.Update(direction, GraphicsDevice.Viewport);
-            players.ForEach(p => p.Update(gameTime, currentKeyboardState));
+            players.ForEach(p => p.Update(gameTime, currentKeyboardState, GraphicsDevice.Viewport));
             level.Update(GraphicsDevice, players.First());
         }
 

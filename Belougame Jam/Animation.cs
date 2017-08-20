@@ -45,6 +45,7 @@ namespace Belougame_Jam
         public void Update(
             GameTime gameTime,
             Vector2 position,
+            Viewport viewport,
             SpriteEffects effects
             )
         {
@@ -91,8 +92,8 @@ namespace Belougame_Jam
             destinationRect = new Rectangle(
                 (int)position.X - (int)(FrameWidth * scale) / 2,
                 (int)position.Y - (int)(FrameHeight * scale) / 2,
-                (int)(FrameWidth * scale),
-                (int)(FrameHeight * scale)
+                (int)(viewport.TitleSafeArea.Width * scale),
+                (int)(viewport.TitleSafeArea.Height * scale)
             );
         }
 
@@ -100,7 +101,10 @@ namespace Belougame_Jam
         {
             if (Active)
             {
-                spriteBatch.Draw(spriteStrip, destinationRect, sourceRect, color, 0, Vector2.Zero, Effects, 0);
+                spriteBatch.Draw(
+                    spriteStrip, destinationRect, sourceRect,
+                    color, 0, Vector2.Zero, Effects, 0
+                    );
             }
         }
     }

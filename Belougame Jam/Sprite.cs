@@ -16,7 +16,7 @@ namespace Belougame_Jam
         int FrameTime;
         float Scale;
 
-        public Sprite(ContentManager content, string file, int width, int height, int frames, int frameTime, int scale)
+        public Sprite(ContentManager content, string file, int width, int height, int frames, int frameTime, float scale)
         {
             File = file;
             Frames = frames;
