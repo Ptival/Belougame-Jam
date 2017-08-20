@@ -15,7 +15,7 @@ namespace Belougame_Jam
     /// </summary>
     public class JungleAdventures : Game
     {
-
+        public const float ASPECT_RATIO = 4.0f / 3.0f;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level level;
@@ -122,7 +122,7 @@ namespace Belougame_Jam
         protected override void Update(GameTime gameTime)
         {
             // preverse aspect ratio
-            graphics.PreferredBackBufferHeight = (int)(GraphicsDevice.Viewport.Width * (3.0 / 4.0));
+            graphics.PreferredBackBufferHeight = (int)(GraphicsDevice.Viewport.Width * (1 / ASPECT_RATIO));
             graphics.ApplyChanges();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
