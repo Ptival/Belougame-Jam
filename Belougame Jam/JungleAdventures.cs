@@ -38,7 +38,7 @@ namespace Belougame_Jam
 
             this.Window.AllowUserResizing = true;
 
-            graphics.PreferredBackBufferHeight = 192 * 2;
+            graphics.PreferredBackBufferHeight = 192 * 3;
             graphics.PreferredBackBufferWidth = (int)(graphics.PreferredBackBufferHeight * ASPECT_RATIO);
             graphics.ApplyChanges();
 
@@ -103,7 +103,7 @@ namespace Belougame_Jam
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {
-                Vector2 position = new Vector2(50 + it.Index * 32, 160);
+                Vector2 position = new Vector2(50 + it.Index * 32, 80);
                 Player player = new Player();
                 player.Initialize(
                     it.Sprite.Item2.animation,

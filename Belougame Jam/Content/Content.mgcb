@@ -181,18 +181,6 @@
 /processorParam:TextureFormat=Color
 /build:michel_jump.png
 
-#begin michel_air_jump.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:michel_air_jump.png
-
 #begin michel_land.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -204,4 +192,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:michel_land.png
+
+#begin michel_midair.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:michel_midair.png
 
