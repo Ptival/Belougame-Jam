@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using TiledSharp;
 
 namespace Belougame_Jam
 {
@@ -51,7 +53,12 @@ namespace Belougame_Jam
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            level = new Level(Content, "level");
+            level = new Level(
+                Content,
+                GraphicsDevice,
+                spriteBatch,
+                "Content/Levels/Level 0/level_0.tmx"
+                );
 
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
