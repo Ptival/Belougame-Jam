@@ -26,6 +26,9 @@ namespace Belougame_Jam
         public int LevelHeight { get { return map.Height * map.TileHeight; } }
         public List<Rectangle> LevelCollisionBoxes;
 
+        private SoundEffectInstance SongIntroInstance;
+        private SoundEffectInstance SongLoopInstance;
+
         private int LevelViewWidth
         {
             get
@@ -85,18 +88,10 @@ namespace Belougame_Jam
             TileSheet = content.Load<Texture2D>(Path.GetFileNameWithoutExtension(map.Tilesets[0].Image.Source));
             Texture = new RenderTarget2D(graphicsDevice, LevelWidth, LevelHeight);
 
-            SoundEffectInstance songLoopInstance = songLoop.CreateInstance();
-            SoundEffectInstance songIntroInstance = songIntro.CreateInstance();
-
-            while (songLoopInstance.State == SoundState.Stopped)
-            {
-                songIntroInstance.Play();
-                if (songIntroInstance.State == SoundState.Stopped)
-                {
-                    songLoopInstance.IsLooped = true;
-                    songLoopInstance.Play();
-                }
-            }
+            SongIntroInstance = songIntro.CreateInstance();
+            SongIntroInstance.Play();
+            SongLoopInstance = songLoop.CreateInstance();
+            SongLoopInstance.IsLooped = true;
 
             LevelCollisionBoxes = new List<Rectangle>();
 
@@ -128,7 +123,7 @@ namespace Belougame_Jam
                         );
                     spriteBatch.Draw(TileSheet, dstRect, srcRect, Color.White);
 
-                    if(tile.Gid != 0)
+                    if (tile.Gid != 0)
                     {
                         LevelCollisionBoxes.Add(dstRect);
                     }
@@ -145,6 +140,12 @@ namespace Belougame_Jam
         {
             ViewportWidth = GraphicsDevice.Viewport.TitleSafeArea.Width;
             ViewportHeight = GraphicsDevice.Viewport.TitleSafeArea.Height;
+
+            if (SongIntroInstance.State == SoundState.Stopped
+                && SongLoopInstance.State == SoundState.Stopped)
+            {
+                SongLoopInstance.Play();
+            }
 
             LevelPosition = new Vector2(
                 MathHelper.Clamp(
