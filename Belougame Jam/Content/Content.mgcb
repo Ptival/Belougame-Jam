@@ -145,3 +145,15 @@
 /processorParam:TextureFormat=Color
 /build:plx-5.png
 
+#begin jungle_intro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jungle_intro.wav
+
+#begin jungle_loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jungle_loop.wav
+

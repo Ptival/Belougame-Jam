@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -75,12 +76,18 @@ namespace Belougame_Jam
             Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), speedForLayer(3)));
             Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), speedForLayer(4)));
 
+
+            SoundEffect songIntro = Content.Load<SoundEffect>("jungle_intro");
+            SoundEffect songLoop = Content.Load<SoundEffect>("jungle_loop");
+
             level = new Level(
                             Content,
                             GraphicsDevice,
                             spriteBatch,
                             "Content/Levels/Level 0/level_0.tmx",
-                            ASPECT_RATIO
+                            ASPECT_RATIO,
+                            songIntro,
+                            songLoop
                         );
 
             float johnsonScale = 0.5f;

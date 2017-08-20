@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledSharp;
 using System.IO;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Belougame_Jam
 {
@@ -72,8 +74,9 @@ namespace Belougame_Jam
             GraphicsDevice graphicsDevice,
             SpriteBatch spriteBatch,
             string tmxFile,
-            float aspectRatio
-            )
+            float aspectRatio,
+            SoundEffect songIntro,
+            SoundEffect songLoop)
         {
             AspectRatio = aspectRatio;
 
@@ -81,6 +84,19 @@ namespace Belougame_Jam
 
             TileSheet = content.Load<Texture2D>(Path.GetFileNameWithoutExtension(map.Tilesets[0].Image.Source));
             Texture = new RenderTarget2D(graphicsDevice, LevelWidth, LevelHeight);
+
+            SoundEffectInstance songLoopInstance = songLoop.CreateInstance();
+            SoundEffectInstance songIntroInstance = songIntro.CreateInstance();
+
+            while (songLoopInstance.State == SoundState.Stopped)
+            {
+                songIntroInstance.Play();
+                if (songIntroInstance.State == SoundState.Stopped)
+                {
+                    songLoopInstance.IsLooped = true;
+                    songLoopInstance.Play();
+                }
+            }
 
             LevelCollisionBoxes = new List<Rectangle>();
 
