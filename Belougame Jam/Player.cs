@@ -46,7 +46,12 @@ namespace Belougame_Jam
             Speed = 3;
         }
 
-        public void Update(GameTime gameTime, KeyboardState keyboardState, Viewport viewport)
+        public void Update(
+            GameTime gameTime,
+            KeyboardState keyboardState,
+            Level level,
+            Viewport viewport
+            )
         {
             float direction = 0;
             if (keyboardState.IsKeyDown(Keys.D)) { direction += 1; }
@@ -67,6 +72,7 @@ namespace Belougame_Jam
             }
 
             LevelPosition.X += direction * Speed;
+            LevelPosition.X = MathHelper.Clamp(LevelPosition.X, 0, level.LevelWidth);
 
             SpriteEffects effects = directionEffects(Direction);
             getAnimation().Update(gameTime, ScreenPosition, viewport, effects);

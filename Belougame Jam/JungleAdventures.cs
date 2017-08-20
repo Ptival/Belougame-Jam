@@ -23,10 +23,10 @@ namespace Belougame_Jam
         List<Background> Backgrounds;
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
-        GamePadState currentGamePadState;
-        GamePadState previousGamePadState;
-        MouseState currentMouseState;
-        MouseState previousMouseState;
+        // GamePadState currentGamePadState;
+        // GamePadState previousGamePadState;
+        // MouseState currentMouseState;
+        // MouseState previousMouseState;
 
 
         public JungleAdventures()
@@ -127,7 +127,9 @@ namespace Belougame_Jam
             graphics.ApplyChanges();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
             base.Update(gameTime);
 
             previousKeyboardState = currentKeyboardState;
@@ -135,13 +137,15 @@ namespace Belougame_Jam
 
             Vector2 direction = Vector2.Zero;
             if (currentKeyboardState.IsKeyDown(Keys.A))
+            {
                 direction += new Vector2(-1, 0);
-            else if (currentKeyboardState.IsKeyDown(Keys.D))
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.D)) {
                 direction += new Vector2(1, 0);
+            }
 
-            foreach (Background bg in Backgrounds)
-                bg.Update(direction, GraphicsDevice.Viewport);
-            players.ForEach(p => p.Update(gameTime, currentKeyboardState, GraphicsDevice.Viewport));
+            Backgrounds.ForEach(bg => bg.Update(direction, GraphicsDevice.Viewport));
+            players.ForEach(p => p.Update(gameTime, currentKeyboardState, level, GraphicsDevice.Viewport));
             level.Update(GraphicsDevice, players.First());
         }
 

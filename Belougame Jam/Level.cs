@@ -20,8 +20,8 @@ namespace Belougame_Jam
         private int ViewportWidth, ViewportHeight;
         private Vector2 LevelPosition;
         // full level WxH in pixels
-        private int LevelWidth { get { return map.Width * map.TileWidth; } }
-        private int LevelHeight { get { return map.Height * map.TileHeight; } }
+        public int LevelWidth { get { return map.Width * map.TileWidth; } }
+        public int LevelHeight { get { return map.Height * map.TileHeight; } }
 
         private int LevelViewWidth
         {
