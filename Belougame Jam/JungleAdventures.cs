@@ -54,6 +54,13 @@ namespace Belougame_Jam
             base.Initialize();
         }
 
+        public Vector2 speedForLayer(int layer)
+        {
+            float speedBase = 1 / 1000f;
+            float speedFactor = 1 / 10f;
+            return new Vector2(speedBase + speedFactor * layer, 0);
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -62,11 +69,11 @@ namespace Belougame_Jam
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(1.0f, 1.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(2.0f, 2.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(3.0f, 3.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(4.0f, 4.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(5.0f, 4.0f), 4.0f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), speedForLayer(0)));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), speedForLayer(1)));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), speedForLayer(2)));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), speedForLayer(3)));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), speedForLayer(4)));
 
             level = new Level(
                             Content,
@@ -140,8 +147,8 @@ namespace Belougame_Jam
                 direction += new Vector2(1, 0);
             }
 
-            Backgrounds.ForEach(bg => bg.Update(direction, GraphicsDevice.Viewport));
             players.ForEach(p => p.Update(gameTime, currentKeyboardState, level, GraphicsDevice.Viewport));
+            Backgrounds.ForEach(bg => bg.Update(direction, GraphicsDevice.Viewport, players[0], level.ZoomFactor));
             level.Update(GraphicsDevice, players.First());
         }
 
