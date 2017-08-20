@@ -132,7 +132,7 @@ namespace Belougame_Jam
 
             LevelPosition = new Vector2(
                 MathHelper.Clamp(
-                    centeredPlayer.PlayerPosition.X,
+                    centeredPlayer.PlayerPosition.X - (int)(3.5 * map.TileWidth),
                     0,
                     LevelWidth - LevelViewWidth
                     )
