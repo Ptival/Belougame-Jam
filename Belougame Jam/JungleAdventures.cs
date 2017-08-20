@@ -104,8 +104,8 @@ namespace Belougame_Jam
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
-
             players.ForEach(p => p.Update(gameTime, currentKeyboardState));
+            level.Update(GraphicsDevice, players.First());
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Belougame_Jam
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            level.Draw(GraphicsDevice, spriteBatch);
+            level.Draw(spriteBatch);
             players.ForEach(p => p.Draw(spriteBatch));
             spriteBatch.End();
 

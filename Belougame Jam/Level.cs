@@ -12,23 +12,23 @@ namespace Belougame_Jam
     class Level
     {
         private Texture2D Texture;
-        private Vector2 Position;
+        // private Vector2 Position;
+        private Rectangle DestinationRect;
+        private Rectangle SourceRect;
 
         public Level(ContentManager content, string file)
         {
             Texture = content.Load<Texture2D>(file);
+            DestinationRect = new Rectangle();
+            SourceRect = new Rectangle();
         }
 
-        public void Update()
-        {
-        }
-
-        public void Draw(
+        public void Update(
             GraphicsDevice GraphicsDevice,
-            SpriteBatch spriteBatch
+            Player centeredPlayer
             )
         {
-            Rectangle destinationRect = new Rectangle(
+            DestinationRect = new Rectangle(
                 0, 0,
                 GraphicsDevice.Viewport.TitleSafeArea.Width,
                 GraphicsDevice.Viewport.TitleSafeArea.Height
@@ -37,13 +37,18 @@ namespace Belougame_Jam
             // Texture :  T.W * T.H
             // Screen  :  V.W * V.H
 
-            Rectangle sourceRect = new Rectangle(
-                0, 0,
+            SourceRect = new Rectangle(
+                (int)centeredPlayer.LevelPosition.X, 0,
                 (Texture.Height * GraphicsDevice.Viewport.TitleSafeArea.Width) / GraphicsDevice.Viewport.TitleSafeArea.Height,
                 Texture.Height
                 );
+        }
 
-            spriteBatch.Draw(Texture, destinationRect, sourceRect, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+        public void Draw(
+            SpriteBatch spriteBatch
+            )
+        {
+            spriteBatch.Draw(Texture, DestinationRect, SourceRect, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
     }
 }

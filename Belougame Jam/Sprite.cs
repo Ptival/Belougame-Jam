@@ -28,7 +28,7 @@ namespace Belougame_Jam
             texture = content.Load<Texture2D>(file);
             animation = new Animation();
             animation.Initialize(
-                texture, Vector2.Zero,
+                texture,
                 Width, Height, Frames, FrameTime,
                 Color.White, scale, true
                 );

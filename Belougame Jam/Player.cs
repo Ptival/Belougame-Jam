@@ -21,7 +21,8 @@ namespace Belougame_Jam
     {
         public Animation IdleAnimation;
         public Animation RunAnimation;
-        public Vector2 Position;
+        public Vector2 LevelPosition;
+        public Vector2 ScreenPosition;
         public bool Active;
         public int Health;
         public float Speed;
@@ -36,7 +37,8 @@ namespace Belougame_Jam
         {
             IdleAnimation = idleAnimation;
             RunAnimation = runAnimation;
-            Position = position;
+            LevelPosition = position;
+            ScreenPosition = position;
             Active = true;
             Health = 100;
             Direction = PlayerDirection.FacingRight;
@@ -64,13 +66,10 @@ namespace Belougame_Jam
                 State = PlayerState.Running;
             }
 
-            Position.X += direction * Speed;
+            LevelPosition.X += direction * Speed;
 
             SpriteEffects effects = directionEffects(Direction);
-            IdleAnimation.Position = Position;
-            IdleAnimation.Update(gameTime, effects);
-            RunAnimation.Position = Position;
-            RunAnimation.Update(gameTime, effects);
+            getAnimation().Update(gameTime, ScreenPosition, effects);
         }
 
         public void Draw(SpriteBatch spriteBatch)

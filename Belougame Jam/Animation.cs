@@ -20,12 +20,10 @@ namespace Belougame_Jam
         public int FrameHeight;
         public bool Active;
         public bool Looping;
-        public Vector2 Position;
         SpriteEffects Effects;
 
         public void Initialize(
             Texture2D texture,
-            Vector2 position,
             int frameWidth, int frameHeight, int frameCount, int frametime,
             Color color, float scale,
             bool looping
@@ -38,14 +36,17 @@ namespace Belougame_Jam
             frameTime = frametime;
             this.scale = scale;
             Looping = looping;
-            Position = position;
             spriteStrip = texture;
             elapsedTime = 0;
             currentFrame = 0;
             Active = true;
         }
 
-        public void Update(GameTime gameTime, SpriteEffects effects)
+        public void Update(
+            GameTime gameTime,
+            Vector2 position,
+            SpriteEffects effects
+            )
         {
             if (Active == false) return;
             elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -88,8 +89,8 @@ namespace Belougame_Jam
             sourceRect = new Rectangle(0, currentFrame * FrameHeight, FrameWidth, FrameHeight);
 
             destinationRect = new Rectangle(
-                (int)Position.X - (int)(FrameWidth * scale) / 2,
-                (int)Position.Y - (int)(FrameHeight * scale) / 2,
+                (int)position.X - (int)(FrameWidth * scale) / 2,
+                (int)position.Y - (int)(FrameHeight * scale) / 2,
                 (int)(FrameWidth * scale),
                 (int)(FrameHeight * scale)
             );
