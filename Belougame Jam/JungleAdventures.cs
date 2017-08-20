@@ -121,6 +121,10 @@ namespace Belougame_Jam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // preverse aspect ratio
+            graphics.PreferredBackBufferHeight = (int)(GraphicsDevice.Viewport.Width * (3.0 / 4.0));
+            graphics.ApplyChanges();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             base.Update(gameTime);
