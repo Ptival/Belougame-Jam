@@ -41,6 +41,7 @@ namespace Belougame_Jam
             int nbColumns = map.Tilesets[0].Columns.Value;
 
             graphicsDevice.SetRenderTarget(Texture);
+            graphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
             foreach (TmxLayer layer in map.Layers)
             {
@@ -68,7 +69,6 @@ namespace Belougame_Jam
             }
             spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
-
         }
 
         public void Update(

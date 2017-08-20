@@ -20,6 +20,7 @@ namespace Belougame_Jam
         SpriteBatch spriteBatch;
         Level level;
         List<Player> players;
+        List<Background> Backgrounds;
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
         GamePadState currentGamePadState;
@@ -27,11 +28,14 @@ namespace Belougame_Jam
         MouseState currentMouseState;
         MouseState previousMouseState;
 
+
         public JungleAdventures()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             players = new List<Player>();
+            Backgrounds = new List<Background>();
+
         }
 
         /// <summary>
@@ -53,12 +57,18 @@ namespace Belougame_Jam
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 2.3f));
+
             level = new Level(
-                Content,
-                GraphicsDevice,
-                spriteBatch,
-                "Content/Levels/Level 0/level_0.tmx"
-                );
+                            Content,
+                            GraphicsDevice,
+                            spriteBatch,
+                            "Content/Levels/Level 0/level_0.tmx"
+                        );
 
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, 1);
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, 1);
@@ -111,6 +121,14 @@ namespace Belougame_Jam
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
+            Vector2 direction = Vector2.Zero;
+            if (currentKeyboardState.IsKeyDown(Keys.A))
+                direction += new Vector2(-1, 0);
+            else if (currentKeyboardState.IsKeyDown(Keys.D))
+                direction += new Vector2(1, 0);
+
+            foreach (Background bg in Backgrounds)
+                bg.Update(gameTime, direction, GraphicsDevice.Viewport);
             players.ForEach(p => p.Update(gameTime, currentKeyboardState));
             level.Update(GraphicsDevice, players.First());
         }
@@ -125,10 +143,10 @@ namespace Belougame_Jam
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            foreach (Background bg in Backgrounds) { bg.Draw(spriteBatch); }
             level.Draw(spriteBatch);
             players.ForEach(p => p.Draw(spriteBatch));
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

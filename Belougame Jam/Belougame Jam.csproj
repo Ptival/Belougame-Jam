@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="Background.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="JungleAdventures.cs" />
@@ -57,7 +58,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TiledSharp">
-      <HintPath>..\..\TiledSharp\TiledSharp\bin\Debug\TiledSharp.dll</HintPath>
+      <HintPath>..\..\..\Downloads\TiledSharp-0.15\TiledSharp\bin\Debug\TiledSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
