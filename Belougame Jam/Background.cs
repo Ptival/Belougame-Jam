@@ -17,14 +17,27 @@ namespace Belougame_Jam
 
         private Viewport Viewport;      //Our game viewport
 
+        private Rectangle dstRectangle
+        {
+            get
+            {
+                return new Rectangle(
+                    Viewport.X, Viewport.Y,
+                    Viewport.TitleSafeArea.Width,
+                    Viewport.TitleSafeArea.Height
+                    );
+            }
+        }
+
         //Calculate Rectangle dimensions, based on offset/viewport/zoom values
-        private Rectangle Rectangle
+        private Rectangle srcRectangle
         {
             get {
                 return new Rectangle(
                     (int)(Offset.X), (int)(Offset.Y),
                     (int)((Texture.Height * Viewport.TitleSafeArea.Width) / Viewport.TitleSafeArea.Height),
-                    (int)(Viewport.Height / Scale));
+                    (int)Texture.Height
+                    );
             }
         }
 
@@ -36,15 +49,12 @@ namespace Belougame_Jam
             Scale = scale;
         }
 
-        public void Update(GameTime gametime, Vector2 direction, Viewport viewport)
+        public void Update(Vector2 direction, Viewport viewport)
         {
-            float elapsed = (float)gametime.ElapsedGameTime.TotalSeconds;
-
-            //Store the viewport
             Viewport = viewport;
 
             //Calculate the distance to move our image, based on speed
-            Vector2 distance = direction * Speed * elapsed;
+            Vector2 distance = direction * Speed;
 
             //Update our offset
             Offset += distance;
@@ -52,11 +62,12 @@ namespace Belougame_Jam
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(
-                Texture,
-                new Vector2(Viewport.X, Viewport.Y),
-                Rectangle, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1
-                );
+            //spriteBatch.Draw(
+            //    Texture,
+            //    new Vector2(Viewport.X, Viewport.Y),
+            //    srcRectangle, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1
+            //    );
+            spriteBatch.Draw(Texture, dstRectangle, srcRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
     }
 }

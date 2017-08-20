@@ -36,6 +36,7 @@ namespace Belougame_Jam
             players = new List<Player>();
             Backgrounds = new List<Background>();
 
+            this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 1024;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = 728;   // set this value to the desired height of your window
             graphics.ApplyChanges();
@@ -61,11 +62,11 @@ namespace Belougame_Jam
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(10.0f, 1.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(50.0f, 2.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(100.0f, 3.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(150.0f, 4.0f), 2.3f));
-            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(200.0f, 4.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-1"), new Vector2(1.0f, 1.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-2"), new Vector2(2.0f, 2.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-3"), new Vector2(3.0f, 3.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-4"), new Vector2(4.0f, 4.0f), 2.3f));
+            Backgrounds.Add(new Background(Content.Load<Texture2D>("plx-5"), new Vector2(5.0f, 4.0f), 4.0f));
 
             level = new Level(
                             Content,
@@ -132,7 +133,7 @@ namespace Belougame_Jam
                 direction += new Vector2(1, 0);
 
             foreach (Background bg in Backgrounds)
-                bg.Update(gameTime, direction, GraphicsDevice.Viewport);
+                bg.Update(direction, GraphicsDevice.Viewport);
             players.ForEach(p => p.Update(gameTime, currentKeyboardState));
             level.Update(GraphicsDevice, players.First());
         }
