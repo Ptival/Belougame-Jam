@@ -18,7 +18,7 @@ namespace Belougame_Jam
         private Texture2D TileSheet;
         private TmxMap map;
         private int ViewportWidth, ViewportHeight;
-        private Vector2 LevelPosition;
+        public Vector2 LevelPosition;
         // full level WxH in pixels
         public int LevelWidth { get { return map.Width * map.TileWidth; } }
         public int LevelHeight { get { return map.Height * map.TileHeight; } }
@@ -49,9 +49,20 @@ namespace Belougame_Jam
             {
                 return new Rectangle(
                     (int)LevelPosition.X, (int)LevelPosition.Y,
-                    16 * map.TileWidth,
-                    LevelHeight
+                    LevelViewWidth,
+                    LevelViewHeight
                     );
+            }
+        }
+
+        public float ZoomFactor
+        {
+            get
+            {
+                // ZoomFactor =               2   :   1
+                //                ViewPortWidth   :   LevelViewWidth
+                return (float)ViewportWidth / (float)LevelViewWidth;
+                // same as ViewportHeigth / LevelHeigth when aspect ratio is kept constant
             }
         }
 
@@ -63,14 +74,15 @@ namespace Belougame_Jam
             float aspectRatio
             )
         {
-            map = new TmxMap(tmxFile);
             AspectRatio = aspectRatio;
+
+            map = new TmxMap(tmxFile);
 
             TileSheet = content.Load<Texture2D>(Path.GetFileNameWithoutExtension(map.Tilesets[0].Image.Source));
             Texture = new RenderTarget2D(graphicsDevice, LevelWidth, LevelHeight);
 
+            // painting the level texture
             int nbColumns = map.Tilesets[0].Columns.Value;
-
             graphicsDevice.SetRenderTarget(Texture);
             graphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
@@ -112,7 +124,7 @@ namespace Belougame_Jam
 
             LevelPosition = new Vector2(
                 MathHelper.Clamp(
-                    centeredPlayer.LevelPosition.X,
+                    centeredPlayer.PlayerPosition.X,
                     0,
                     LevelWidth - LevelViewWidth
                     )

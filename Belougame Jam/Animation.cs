@@ -67,31 +67,11 @@ namespace Belougame_Jam
                 elapsedTime = 0;
             }
 
-            // calculer le rectangle de la frame
-            /*  (x=0,y=0)---------(x=W,y=0)
-             *      |*****************|
-             *      |*****************|
-             *      |*****************|    hauteur du rectangle H (height)
-             *      |*****************|
-             *   (x=0,y=H)---------(x=W,y=H)
-             *              largeur du rectangle W (width)
-             */
-            // (x, y, width, height)
-            // f    x    y    w    h
-            // 0:   0    0    64   64
-            // 1:   0   64    64   64
-            // 2:   0  128    64   64
-            // 3:   0  192    64   64
-
-            // x = 0
-            // y = f * hauteur
-            // w = largeur
-            // h = hauteur
             sourceRect = new Rectangle(0, currentFrame * FrameHeight, FrameWidth, FrameHeight);
 
             destinationRect = new Rectangle(
-                (int)position.X - (int)(viewport.TitleSafeArea.Width * scale) / 2,
-                (int)position.Y - (int)(viewport.TitleSafeArea.Height * scale) / 2,
+                (int)position.X,
+                (int)position.Y,
                 (int)(viewport.TitleSafeArea.Width * scale),
                 (int)(viewport.TitleSafeArea.Height * scale)
             );

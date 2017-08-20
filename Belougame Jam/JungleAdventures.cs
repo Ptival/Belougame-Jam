@@ -89,12 +89,7 @@ namespace Belougame_Jam
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {
-                Vector2 position = new Vector2(
-                    GraphicsDevice.Viewport.TitleSafeArea.X
-                    + GraphicsDevice.Viewport.TitleSafeArea.Width * (it.Index + 1) / 3,
-                    GraphicsDevice.Viewport.TitleSafeArea.Y
-                    + GraphicsDevice.Viewport.TitleSafeArea.Height * (0.83f)
-                );
+                Vector2 position = new Vector2(50 + it.Index * 32, 160);
                 Player player = new Player();
                 player.Initialize(
                     it.Sprite.Item1.animation,
