@@ -36,6 +36,10 @@ namespace Belougame_Jam
             players = new List<Player>();
             Backgrounds = new List<Background>();
 
+            graphics.PreferredBackBufferWidth = 1024;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 728;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
         }
 
         /// <summary>
