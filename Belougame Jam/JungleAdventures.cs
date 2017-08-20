@@ -96,10 +96,12 @@ namespace Belougame_Jam
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, johnsonScale);
             Sprite michelIdle = new Sprite(Content, "michel_idle", 21, 35, 12, 90, michelScale);
             Sprite michelRun = new Sprite(Content, "michel_run", 23, 34, 8, 90, michelScale);
+            Sprite michelSSJ = new Sprite(Content, "michel_ssj_transformation", 22, 37, 2, 90, michelScale);
 
-            var playerSprites = new List<Tuple<float, Sprite, Sprite>>();
+
+            var playerSprites = new List<Tuple<float, Sprite, Sprite, Sprite>>();
             //playerSprites.Add(new Tuple<float, Sprite, Sprite>(johnsonScale, johnsonIdle, johnsonRun));
-            playerSprites.Add(new Tuple<float, Sprite, Sprite>(michelScale, michelIdle, michelRun));
+            playerSprites.Add(new Tuple<float, Sprite, Sprite, Sprite>(michelScale, michelIdle, michelRun, michelSSJ));
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {
@@ -108,6 +110,7 @@ namespace Belougame_Jam
                 player.Initialize(
                     it.Sprite.Item2.animation,
                     it.Sprite.Item3.animation,
+                    it.Sprite.Item4.animation,
                     position,
                     it.Sprite.Item1
                     );

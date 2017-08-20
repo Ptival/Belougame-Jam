@@ -14,13 +14,15 @@ namespace Belougame_Jam
     public enum PlayerState
     {
         Idle = 0,
-        Running = 1
+        Running = 1,
+        SSJing = 2
     }
 
     class Player
     {
         public Animation IdleAnimation;
         public Animation RunAnimation;
+        public Animation SSJAnimation;
         public Vector2 PlayerPosition;
         public bool Active;
         public int Health;
@@ -43,12 +45,14 @@ namespace Belougame_Jam
         public void Initialize(
             Animation idleAnimation,
             Animation runAnimation,
+            Animation ssjAnimation,
             Vector2 position,
             float spriteScale
             )
         {
             IdleAnimation = idleAnimation;
             RunAnimation = runAnimation;
+            SSJAnimation = ssjAnimation;
             PlayerPosition = position;
             Active = true;
             Health = 100;
@@ -68,8 +72,10 @@ namespace Belougame_Jam
             float direction = 0;
             if (keyboardState.IsKeyDown(Keys.D)) { direction += 1; }
             if (keyboardState.IsKeyDown(Keys.A)) { direction -= 1; }
+            if (keyboardState.IsKeyDown(Keys.T)) { State = PlayerState.SSJing; }
 
-            if (direction == 0)
+
+                if (direction == 0)
             {
                 State = PlayerState.Idle;
             }
@@ -122,6 +128,7 @@ namespace Belougame_Jam
             {
                 case PlayerState.Idle: return IdleAnimation;
                 case PlayerState.Running: return RunAnimation;
+                case PlayerState.SSJing: return SSJAnimation;
                 default: throw new ArgumentOutOfRangeException();
             }
         }
