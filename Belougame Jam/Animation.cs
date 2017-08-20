@@ -46,7 +46,8 @@ namespace Belougame_Jam
             GameTime gameTime,
             Vector2 position,
             Viewport viewport,
-            SpriteEffects effects
+            SpriteEffects effects,
+            float zoomFactor
             )
         {
             if (Active == false) return;
@@ -72,8 +73,8 @@ namespace Belougame_Jam
             destinationRect = new Rectangle(
                 (int)position.X,
                 (int)position.Y,
-                (int)(viewport.TitleSafeArea.Width * scale),
-                (int)(viewport.TitleSafeArea.Height * scale)
+                (int)(FrameWidth * zoomFactor * scale),
+                (int)(FrameHeight * zoomFactor * scale)
             );
         }
 

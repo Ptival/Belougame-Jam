@@ -27,11 +27,13 @@ namespace Belougame_Jam
         public float Speed;
         public PlayerDirection Direction;
         public PlayerState State;
+        private float SpriteScale;
 
         public void Initialize(
             Animation idleAnimation,
             Animation runAnimation,
-            Vector2 position
+            Vector2 position,
+            float spriteScale
             )
         {
             IdleAnimation = idleAnimation;
@@ -42,6 +44,7 @@ namespace Belougame_Jam
             Direction = PlayerDirection.FacingRight;
             State = PlayerState.Idle;
             Speed = 3;
+            SpriteScale = spriteScale;
         }
 
         public void Update(
@@ -72,14 +75,22 @@ namespace Belougame_Jam
             PlayerPosition.X += direction * Speed;
             PlayerPosition.X = MathHelper.Clamp(PlayerPosition.X, 0, level.LevelWidth);
 
-            Vector2 playerViewPositionUnscaled = PlayerPosition - level.LevelPosition;
+            Animation currentAnimation = getAnimation();
+
+            Vector2 upperCornerToFeet = new Vector2(
+                (currentAnimation.FrameWidth / 2),
+                currentAnimation.FrameHeight
+                );
+            Vector2 playerUpperCornerPosition = PlayerPosition - upperCornerToFeet;
+            Vector2 playerViewPositionUnscaled = playerUpperCornerPosition - level.LevelPosition;
             Vector2 playerViewPositionScaled = level.ZoomFactor * playerViewPositionUnscaled;
 
             getAnimation().Update(
                 gameTime,
                 playerViewPositionScaled,
                 viewport,
-                directionEffects(Direction)
+                directionEffects(Direction),
+                level.ZoomFactor
                 );
         }
 

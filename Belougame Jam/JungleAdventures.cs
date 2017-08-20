@@ -28,7 +28,6 @@ namespace Belougame_Jam
         // MouseState currentMouseState;
         // MouseState previousMouseState;
 
-
         public JungleAdventures()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -37,8 +36,9 @@ namespace Belougame_Jam
             Backgrounds = new List<Background>();
 
             this.Window.AllowUserResizing = true;
-            graphics.PreferredBackBufferWidth = 1024;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 728;   // set this value to the desired height of your window
+
+            graphics.PreferredBackBufferHeight = 192 * 2;
+            graphics.PreferredBackBufferWidth = (int)(graphics.PreferredBackBufferHeight * ASPECT_RATIO);
             graphics.ApplyChanges();
 
         }
@@ -76,25 +76,26 @@ namespace Belougame_Jam
                             ASPECT_RATIO
                         );
 
-            float johnsonScale = 0.1f;
-            float michelScale = johnsonScale * 1.2f;
+            float johnsonScale = 0.5f;
+            float michelScale = johnsonScale * 2.0f;
             Sprite johnsonIdle = new Sprite(Content, "johnson_idle", 64, 64, 8, 100, johnsonScale);
             Sprite johnsonRun = new Sprite(Content, "johnson_run", 64, 64, 6, 100, johnsonScale);
             Sprite michelIdle = new Sprite(Content, "michel_idle", 21, 35, 12, 90, michelScale);
             Sprite michelRun = new Sprite(Content, "michel_run", 23, 34, 8, 90, michelScale);
 
-            var playerSprites = new List<Tuple<Sprite, Sprite>>();
-            playerSprites.Add(new Tuple<Sprite, Sprite>(johnsonIdle, johnsonRun));
-            playerSprites.Add(new Tuple<Sprite, Sprite>(michelIdle, michelRun));
+            var playerSprites = new List<Tuple<float, Sprite, Sprite>>();
+            //playerSprites.Add(new Tuple<float, Sprite, Sprite>(johnsonScale, johnsonIdle, johnsonRun));
+            playerSprites.Add(new Tuple<float, Sprite, Sprite>(michelScale, michelIdle, michelRun));
 
             foreach (var it in playerSprites.Select((v, i) => new { Sprite = v, Index = i }))
             {
-                Vector2 position = new Vector2(50 + it.Index * 32, 160);
+                Vector2 position = new Vector2(50 + it.Index * 32, 162);
                 Player player = new Player();
                 player.Initialize(
-                    it.Sprite.Item1.animation,
                     it.Sprite.Item2.animation,
-                    position
+                    it.Sprite.Item3.animation,
+                    position,
+                    it.Sprite.Item1
                     );
                 players.Add(player);
             }
