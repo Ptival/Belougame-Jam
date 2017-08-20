@@ -72,7 +72,8 @@ namespace Belougame_Jam
                             Content,
                             GraphicsDevice,
                             spriteBatch,
-                            "Content/Levels/Level 0/level_0.tmx"
+                            "Content/Levels/Level 0/level_0.tmx",
+                            ASPECT_RATIO
                         );
 
             float johnsonScale = 0.1f;

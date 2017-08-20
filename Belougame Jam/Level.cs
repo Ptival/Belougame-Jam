@@ -13,28 +13,58 @@ namespace Belougame_Jam
 {
     class Level
     {
+        private float AspectRatio;
         private RenderTarget2D Texture;
         private Texture2D TileSheet;
         private TmxMap map;
-        // private Vector2 Position;
-        private Rectangle DestinationRect;
-        private Rectangle SourceRect;
-        public int LevelWidth;
-        public int LevelHeight;
+        private int ViewportWidth, ViewportHeight;
+        private Vector2 LevelPosition;
+        // full level WxH in pixels
+        private int LevelWidth { get { return map.Width * map.TileWidth; } }
+        private int LevelHeight { get { return map.Height * map.TileHeight; } }
+
+        private int LevelViewWidth
+        {
+            get
+            {
+                // #ProduitEnCroix
+                // Aspect Ratio :                4 : 3
+                // View   Ratio :   LevelViewWidth : LevelViewHeight
+                return (int)(LevelViewHeight * AspectRatio);
+            }
+        }
+        private int LevelViewHeight { get { return LevelHeight; } }
+
+        private Rectangle DestinationRect
+        {
+            get
+            {
+                return new Rectangle(0, 0, ViewportWidth, ViewportHeight);
+            }
+        }
+
+        private Rectangle SourceRect
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)LevelPosition.X, (int)LevelPosition.Y,
+                    16 * map.TileWidth,
+                    LevelHeight
+                    );
+            }
+        }
 
         public Level(
             ContentManager content,
             GraphicsDevice graphicsDevice,
             SpriteBatch spriteBatch,
-            string tmxFile
+            string tmxFile,
+            float aspectRatio
             )
         {
-            DestinationRect = new Rectangle();
-            SourceRect = new Rectangle();
-
             map = new TmxMap(tmxFile);
-            LevelWidth = map.Width * map.TileWidth;
-            LevelHeight = map.Height * map.TileHeight;
+            AspectRatio = aspectRatio;
 
             TileSheet = content.Load<Texture2D>(Path.GetFileNameWithoutExtension(map.Tilesets[0].Image.Source));
             Texture = new RenderTarget2D(graphicsDevice, LevelWidth, LevelHeight);
@@ -77,19 +107,16 @@ namespace Belougame_Jam
             Player centeredPlayer
             )
         {
-            DestinationRect = new Rectangle(
-                0, 0,
-                GraphicsDevice.Viewport.TitleSafeArea.Width,
-                GraphicsDevice.Viewport.TitleSafeArea.Height
-                );
+            ViewportWidth = GraphicsDevice.Viewport.TitleSafeArea.Width;
+            ViewportHeight = GraphicsDevice.Viewport.TitleSafeArea.Height;
 
-            // Texture :  T.W * T.H
-            // Screen  :  V.W * V.H
-
-            SourceRect = new Rectangle(
-                (int)centeredPlayer.LevelPosition.X, 0,
-                LevelHeight * (map.TileWidth / map.TileHeight) * (4 / 3),
-                LevelHeight
+            LevelPosition = new Vector2(
+                MathHelper.Clamp(
+                    centeredPlayer.LevelPosition.X,
+                    0,
+                    LevelWidth - LevelViewWidth
+                    )
+                , 0
                 );
         }
 
