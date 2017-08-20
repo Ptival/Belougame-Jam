@@ -17,7 +17,8 @@ namespace Belougame_Jam
     {
         Idle = 0,
         Running = 1,
-        Jumping = 2
+        Jumping = 2,
+        SSJing = 3
     }
 
     class Player
@@ -54,6 +55,7 @@ namespace Belougame_Jam
         public void Initialize(
             Animation idleAnimation,
             Animation runAnimation,
+            Animation midAirAnimation,
             Animation ssjAnimation,
             Vector2 position,
             float spriteScale
@@ -61,6 +63,7 @@ namespace Belougame_Jam
         {
             IdleAnimation = idleAnimation;
             RunAnimation = runAnimation;
+            MidAirAnimation = midAirAnimation;
             SSJAnimation = ssjAnimation;
             PlayerPosition = position;
             Active = true;
@@ -89,11 +92,12 @@ namespace Belougame_Jam
             }
 
             Vector2 friction = new Vector2(0, 0);
-            if (!CanJump)
+            if (keyboardState.IsKeyDown(Keys.T)) {State = PlayerState.SSJing;}
+            else if (!CanJump)
             {
                 State = PlayerState.Jumping;
             }
-            if (acceleration.X == 0)
+            else if (acceleration.X == 0)
             {
                 State = PlayerState.Idle;
                 friction.X = - 0.25f * Velocity.X;
@@ -188,6 +192,7 @@ namespace Belougame_Jam
             {
                 case PlayerState.Idle: return IdleAnimation;
                 case PlayerState.Running: return RunAnimation;
+                case PlayerState.Jumping: return MidAirAnimation;
                 case PlayerState.SSJing: return SSJAnimation;
                 default: throw new ArgumentOutOfRangeException();
             }
